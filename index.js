@@ -300,11 +300,18 @@
     });
   }
 
+  function showDayWorkout() {
+    $("#program").on("click", ".day .head", function () {
+      const dayHeader = $(this);
+      dayHeader.next().slideToggle();
+    });
+  }
+
   $(function () {
     renderProgram();
 
     var state = loadState();
-    console.log(state);
+    //console.log(state);
     setInputsFromState(state);
     updateTMDisplay(state);
     updateAllWeights(state);
@@ -312,5 +319,6 @@
     wireInputs();
     wireWeekToggle();
     setupAntiRefreshMitigations();
+    showDayWorkout();
   });
 })(jQuery);

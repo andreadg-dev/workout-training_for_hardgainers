@@ -7,7 +7,7 @@ const PROGRAM = {
       week: 1,
       days: [
         {
-          day: "Monday",
+          day: "Day A",
           warm_up: ["Agile 8", "Box Jump x 10 total reps"],
           main_lift: "Squat",
           sets: [
@@ -47,7 +47,7 @@ const PROGRAM = {
           ],
         },
         {
-          day: "Tuesday",
+          day: "Day B",
           warm_up: ["Agile 8", "Box Jump x 10 total reps"],
           main_lift: "Bench Press",
           sets: [
@@ -80,7 +80,7 @@ const PROGRAM = {
           ],
         },
         {
-          day: "Thursday",
+          day: "Day D",
           warm_up: ["Agile 8", "Box Jump x 10 total reps"],
           main_lift: "Deadlift",
           sets: [
@@ -120,7 +120,7 @@ const PROGRAM = {
           ],
         },
         {
-          day: "Friday",
+          day: "Day E",
           warm_up: ["Agile 8", "Box Jump x 10 total reps"],
           main_lift: "Press (Overhead Press)",
           sets: [
@@ -165,7 +165,7 @@ const PROGRAM = {
       week: 2,
       days: [
         {
-          day: "Monday",
+          day: "Day A",
           warm_up: ["Agile 8", "Box Jump x 10 total reps"],
           main_lift: "Squat",
           sets: [
@@ -205,7 +205,7 @@ const PROGRAM = {
           ],
         },
         {
-          day: "Tuesday",
+          day: "Day B",
           warm_up: ["Agile 8", "Box Jump x 10 total reps"],
           main_lift: "Bench Press",
           sets: [
@@ -238,7 +238,7 @@ const PROGRAM = {
           ],
         },
         {
-          day: "Thursday",
+          day: "Day D",
           warm_up: ["Agile 8", "Box Jump x 10 total reps"],
           main_lift: "Deadlift",
           sets: [
@@ -278,7 +278,7 @@ const PROGRAM = {
           ],
         },
         {
-          day: "Friday",
+          day: "Day E",
           warm_up: ["Agile 8", "Box Jump x 10 total reps"],
           main_lift: "Press (Overhead Press)",
           sets: [
@@ -323,7 +323,7 @@ const PROGRAM = {
       week: 3,
       days: [
         {
-          day: "Monday",
+          day: "Day A",
           warm_up: ["Agile 8", "Box Jump x 10 total reps"],
           main_lift: "Squat",
           sets: [
@@ -363,7 +363,7 @@ const PROGRAM = {
           ],
         },
         {
-          day: "Tuesday",
+          day: "Day B",
           warm_up: ["Agile 8", "Box Jump x 10 total reps"],
           main_lift: "Bench Press",
           sets: [
@@ -396,7 +396,7 @@ const PROGRAM = {
           ],
         },
         {
-          day: "Thursday",
+          day: "Day D",
           warm_up: ["Agile 8", "Box Jump x 10 total reps"],
           main_lift: "Deadlift",
           sets: [
@@ -436,7 +436,7 @@ const PROGRAM = {
           ],
         },
         {
-          day: "Friday",
+          day: "Day E",
           warm_up: ["Agile 8", "Box Jump x 10 total reps"],
           main_lift: "Press (Overhead Press)",
           sets: [
