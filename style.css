@@ -1,0 +1,340 @@
+:root {
+  --bg: #0b0f14;
+  --panel: #121926;
+  --panel2: #0f1521;
+  --text: #e7eefc;
+  --muted: #a9b7d1;
+  --accent: #7aa2ff;
+  --ok: #2dd4bf;
+  --warn: #fbbf24;
+  --border: rgba(255, 255, 255, 0.1);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --radius: 14px;
+  --mono:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+  --sans:
+    ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial,
+    "Noto Sans", "Liberation Sans", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@media (min-width: 980px) {
+  .grid {
+    grid-template-columns: 420px 1fr;
+  }
+}
+
+html {
+  min-height: 100%;
+  background:
+    radial-gradient(
+      1200px 700px at 20% 10%,
+      rgba(122, 162, 255, 0.18),
+      transparent 50%
+    ),
+    radial-gradient(
+      900px 600px at 80% 0%,
+      rgba(45, 212, 191, 0.12),
+      transparent 55%
+    ),
+    var(--bg);
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* keeps it consistent while scrolling */
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: transparent; /* important: don't paint a different bg on body */
+  margin: 0;
+  font-family: var(--sans);
+  color: var(--text);
+  line-height: 1.4;
+}
+
+header {
+  padding: 22px 16px 10px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+h1 {
+  margin: 0 0 6px;
+  font-size: 20px;
+  font-weight: 750;
+  letter-spacing: 0.2px;
+}
+
+.sub {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 14px 16px 60px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+.card {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.03),
+    rgba(255, 255, 255, 0.015)
+  );
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.card h2 {
+  margin: 0;
+  padding: 14px 14px 12px;
+  font-size: 14px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: rgba(231, 238, 252, 0.92);
+  border-bottom: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.card .content {
+  padding: 14px;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+label {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+input[type="number"] {
+  width: 160px;
+  padding: 10px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(15, 21, 33, 0.65);
+  color: var(--text);
+  outline: none;
+  font-size: 14px;
+}
+
+input[type="number"]:focus {
+  border-color: rgba(122, 162, 255, 0.55);
+  box-shadow: 0 0 0 3px rgba(122, 162, 255, 0.15);
+}
+
+.help {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(18, 25, 38, 0.6);
+  color: rgba(231, 238, 252, 0.92);
+  font-size: 12px;
+  margin: 6px 8px 0 0;
+  user-select: none;
+}
+
+.pill b {
+  font-family: var(--mono);
+  font-weight: 700;
+  color: var(--ok);
+}
+
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 14px 0;
+}
+
+.day {
+  margin: 14px 0 18px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(18, 25, 38, 0.35);
+}
+
+.day .head {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid var(--border);
+}
+
+.day .head .title {
+  font-weight: 750;
+  letter-spacing: 0.2px;
+  font-size: 13px;
+}
+
+.badge {
+  font-size: 11px;
+  font-weight: bold;
+  background-color: rgb(96, 165, 158);
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: rgba(231, 238, 252, 0.9);
+  white-space: nowrap;
+}
+
+.day .body {
+  padding: 10px 12px;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.small {
+  font-size: 12px;
+}
+
+.k {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.setline {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 6px 0;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+}
+
+.setline:last-child {
+  border-bottom: none;
+}
+
+.setline .lhs {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.setline .lhs .tag {
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: rgba(231, 238, 252, 0.88);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.setline .rhs {
+  font-family: var(--mono);
+  font-weight: 750;
+}
+
+.note {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+.btnrow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+button {
+  border: 1px solid var(--border);
+  background: rgba(15, 21, 33, 0.55);
+  color: var(--text);
+  padding: 9px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 650;
+  font-size: 12px;
+}
+
+button:hover {
+  border-color: rgba(122, 162, 255, 0.5);
+}
+
+.warnbox {
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  background: rgba(251, 191, 36, 0.08);
+  color: rgba(255, 245, 207, 0.95);
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  margin-top: 12px;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Week toggle UI */
+.pill.week-pill {
+  cursor: pointer;
+  position: relative;
+  padding-right: 28px;
+}
+
+.pill.week-pill::after {
+  content: "▸";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(231, 238, 252, 0.75);
+  font-size: 12px;
+}
+
+.pill.week-pill.is-open {
+  border-color: rgba(122, 162, 255, 0.45);
+  background: rgba(122, 162, 255, 0.1);
+}
+
+.pill.week-pill.is-open::after {
+  content: "▾";
+  color: rgba(231, 238, 252, 0.85);
+}
+
+.week-days {
+  display: none; /* default collapsed */
+  margin-top: 6px;
+}
