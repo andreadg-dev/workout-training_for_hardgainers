@@ -84,7 +84,7 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-/*   display: grid;
+  /*   display: grid;
   grid-template-columns: 1fr; */
   gap: 14px;
 }
@@ -147,6 +147,17 @@ input[type="number"]:focus {
   box-shadow: 0 0 0 3px rgba(122, 162, 255, 0.15);
 }
 
+fieldset {
+  display: flex;
+  gap: 2em;
+  justify-content: space-around;
+}
+
+legend {
+  font-size: 12px;
+  color: var(--muted);
+}
+
 .help {
   color: var(--muted);
   font-size: 12px;
@@ -202,6 +213,15 @@ input[type="number"]:focus {
   font-weight: 750;
   letter-spacing: 0.2px;
   font-size: 13px;
+}
+
+.day.is-current {
+  border-color: rgba(45, 212, 191, 0.55);
+  box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.12);
+}
+
+.day.is-current .head {
+  background: rgba(45, 212, 191, 0.08);
 }
 
 .badge {

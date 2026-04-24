@@ -1,6 +1,22 @@
 (function ($) {
   const STORAGE_KEY = "hardgainers531_1rm_v1";
-  const DEFAULTS = { squat: 100, deadlift: 50, bench: 100, press: 50 };
+  const DEFAULTS = {
+    squat: 100,
+    deadlift: 50,
+    bench: 100,
+    press: 50,
+    currentWeek: 1,
+    currentDay: "A",
+  };
+
+  function escapeAttr(s) {
+    return String(s)
+      .replaceAll("&", "&amp;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#39;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;");
+  }
 
   function isMobileLike() {
     var ua = navigator.userAgent || "";
@@ -60,6 +76,18 @@
     $("#inBench").val(state.bench);
     $("#inDeadlift").val(state.deadlift);
     $("#inPress").val(state.press);
+
+    // Current week radios
+    $(`input[name="week_radio"][value="${state.currentWeek}"]`).prop(
+      "checked",
+      true,
+    );
+
+    // Current day:
+    $(`input[name="day_radio"][value="${state.currentDay}"]`).prop(
+      "checked",
+      true,
+    );
   }
 
   function getStateFromInputs() {
@@ -68,21 +96,20 @@
       bench: parseFloat($("#inBench").val()),
       deadlift: parseFloat($("#inDeadlift").val()),
       press: parseFloat($("#inPress").val()),
+      currentWeek: parseInt($('input[name="week_radio"]:checked').val(), 10),
+      currentDay: String($('input[name="day_radio"]:checked').val() || "A"),
     };
   }
 
   function renderProgram() {
-    var $root = $("#program");
-    $root.empty();
+    const root = $("#program");
+    root.empty();
 
-    $root.append(
-      $("<div/>")
-        .addClass("small muted")
-        .html(
-          'Source: <a href="' +
-            PROGRAM.source +
-            '" target="_blank" rel="noopener">jimwendler.com</a>',
-        ),
+    // Adding the workout program source
+    root.append(
+      `<div class="small muted">
+        Source: <a href="${escapeAttr(PROGRAM.source)}" target="_blank" rel="noopener">jimwendler.com</a>
+      </div>`,
     );
 
     var $notes = $("<div/>").addClass("note");
@@ -92,7 +119,7 @@
       $ul.append($("<li/>").text(n));
     });
     $notes.append($ul);
-    $root.append($notes);
+    root.append($notes);
 
     $.each(PROGRAM.weeks, function (_, wk) {
       var $wk = $("<div/>")
@@ -201,7 +228,7 @@
       });
 
       $wk.append($daysWrap);
-      $root.append($wk);
+      root.append($wk);
     });
   }
 
@@ -233,7 +260,18 @@
       saveState(state);
       updateTMDisplay(state);
       updateAllWeights(state);
+      applyCurrentWeekAndDayUI(state);
     });
+
+    // NEW: week/day radios
+    $('input[name="week_radio"], input[name="day_radio"]').on(
+      "change",
+      function () {
+        var state = getStateFromInputs();
+        saveState(state);
+        applyCurrentWeekAndDayUI(state);
+      },
+    );
 
     $("#btnResetDefaults").on("click", function () {
       var state = $.extend({}, DEFAULTS);
@@ -307,6 +345,49 @@
     });
   }
 
+  function dayLetterToDayName(letter) {
+    var map = { A: "Day A", B: "Day B", D: "Day D", E: "Day E" };
+    return map[String(letter || "").toUpperCase()] || null;
+  }
+
+  function applyCurrentWeekAndDayUI(state) {
+    // --- Week: open only the selected week ---
+    var weekNum = state.currentWeek;
+
+    // close all weeks
+    $(".week-days").stop(true, true).slideUp(0);
+    $(".week-days .body").stop(true, true).slideUp(0);
+    $(".week-pill").removeClass("is-open");
+
+    // open selected week
+    var $week = $('.week[data-week="' + weekNum + '"]');
+    $week.find(".week-pill").addClass("is-open");
+    $week.find(".week-days").stop(true, true).slideDown(0);
+
+    // --- Day highlight inside that week ---
+    $(".day").removeClass("is-current");
+
+    var dayName = dayLetterToDayName(state.currentDay);
+    if (!dayName) return;
+
+    // find the .day whose .title matches (Monday/Tuesday/Thursday/Friday)
+    $week.find(".day").each(function () {
+      var $day = $(this);
+      var title = $.trim($day.find(".head .title").first().text());
+
+      if (title === dayName) {
+        $day.addClass("is-current");
+
+        // Slide toggle the corresponding day
+        $day.find(".body").first().stop(true, true).slideDown(180);
+        // optional: scroll into view (nice on mobile)
+        // comment this out if you don't want auto scrolling
+        $day[0].scrollIntoView({ behavior: "smooth", block: "start" });
+        return false; // break loop
+      }
+    });
+  }
+
   $(function () {
     renderProgram();
 
@@ -315,10 +396,12 @@
     setInputsFromState(state);
     updateTMDisplay(state);
     updateAllWeights(state);
+    applyCurrentWeekAndDayUI(state);
 
     wireInputs();
     wireWeekToggle();
     setupAntiRefreshMitigations();
     showDayWorkout();
+    applyCurrentWeekAndDayUI(state);
   });
 })(jQuery);
