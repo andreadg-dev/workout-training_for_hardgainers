@@ -1,3 +1,51 @@
+const ASSISTANCE = {
+  push: {
+    type: "push",
+    exercises: {
+      push78965: "dip",
+      push12345: "push-up",
+      push59876: "dumbbell bench press",
+      push78451: "dumbbell incline press",
+    },
+    reps: "50-100 reps",
+  },
+  pull: {
+    type: "pull",
+    exercises: {
+      pull78965: "pull-up",
+      pull12345: "row",
+      pull59876: "lat pulldown",
+      pull78451: "inverted row",
+      pull54321: "curl",
+      pull54123: "shrug",
+    },
+    reps: "50-100 reps",
+  },
+  accessory: {
+    type: "accessory",
+    exercises: {
+      accs78965: "any abdominal exercise",
+      accs12345: "back raise",
+      accs59876: "reverse hyperextension",
+      accs78451: "lunge",
+      accs54321: "step-up",
+      accs54123: "split squat",
+      accs65789: "one-let squat",
+      accs73195: "kettlebell swing",
+      accs79136: "kettlebell snatch",
+    },
+    reps: "50-100 reps",
+  },
+  conditioning: {
+    type: "conditioning",
+    exercises: {
+      cond78965: "prowler",
+      cond12345: "sled",
+    },
+    reps: "20-30 mins",
+  },
+};
+
 const PROGRAM = {
   name: "5/3/1 for Hardgainers",
   source:
@@ -40,11 +88,7 @@ const PROGRAM = {
               notes: "Widowmaker set",
             },
           ],
-          assistance: [
-            "Push: Dip, push-up, or DB bench/incline/press (choose one) - 50-100 total reps",
-            "Pull: Pull-up, row, lat pulldown, inverted row, curl, shrug (choose one) - 50-100 total reps",
-            "Accessory: abs/low back/single-leg/KB swing/KB snatch (choose one) - 50-100 total reps",
-          ],
+          assistance: [ASSISTANCE.push, ASSISTANCE.pull, ASSISTANCE.accessory],
         },
         {
           day: "Day B",
@@ -74,9 +118,9 @@ const PROGRAM = {
             },
           ],
           assistance: [
-            "Push: Dip, push-up, or DB bench/incline/press (choose one) - 50-100 total reps",
-            "Pull: Pull-up, row, lat pulldown, inverted row, curl, shrug (choose one) - 50-100 total reps",
-            "Conditioning: Prowler or Sled - 20-30 minutes",
+            ASSISTANCE.push,
+            ASSISTANCE.pull,
+            ASSISTANCE.conditioning,
           ],
         },
         {
@@ -113,11 +157,7 @@ const PROGRAM = {
               notes: "5 sets of 5",
             },
           ],
-          assistance: [
-            "Push: Dip, push-up, or DB bench/incline/press (choose one) - 50-100 total reps",
-            "Pull: Pull-up, row, lat pulldown, inverted row, curl, shrug (choose one) - 50-100 total reps",
-            "Accessory: abs/low back/single-leg/KB swing/KB snatch (choose one) - 50-100 total reps",
-          ],
+          assistance: [ASSISTANCE.push, ASSISTANCE.pull, ASSISTANCE.accessory],
         },
         {
           day: "Day E",
@@ -154,9 +194,9 @@ const PROGRAM = {
             },
           ],
           assistance: [
-            "Push: Dip, push-up, or DB bench/incline/press (choose one) - 50-100 total reps",
-            "Pull: Pull-up, row, lat pulldown, inverted row, curl, shrug (choose one) - 50-100 total reps",
-            "Conditioning: Prowler or Sled - 20-30 minutes",
+            ASSISTANCE.push,
+            ASSISTANCE.pull,
+            ASSISTANCE.conditioning,
           ],
         },
       ],
@@ -198,11 +238,7 @@ const PROGRAM = {
               notes: "Widowmaker set",
             },
           ],
-          assistance: [
-            "Push: Dip, push-up, or DB bench/incline/press (choose one) - 50-100 total reps",
-            "Pull: Pull-up, row, lat pulldown, inverted row, curl, shrug (choose one) - 50-100 total reps",
-            "Accessory: abs/low back/single-leg/KB swing/KB snatch (choose one) - 50-100 total reps",
-          ],
+          assistance: [ASSISTANCE.push, ASSISTANCE.pull, ASSISTANCE.accessory],
         },
         {
           day: "Day B",
@@ -232,9 +268,9 @@ const PROGRAM = {
             },
           ],
           assistance: [
-            "Push: Dip, push-up, or DB bench/incline/press (choose one) - 50-100 total reps",
-            "Pull: Pull-up, row, lat pulldown, inverted row, curl, shrug (choose one) - 50-100 total reps",
-            "Conditioning: Prowler or Sled - 20-30 minutes",
+            ASSISTANCE.push,
+            ASSISTANCE.pull,
+            ASSISTANCE.conditioning,
           ],
         },
         {
@@ -271,11 +307,7 @@ const PROGRAM = {
               notes: "5 sets of 5",
             },
           ],
-          assistance: [
-            "Push: Dip, push-up, or DB bench/incline/press (choose one) - 50-100 total reps",
-            "Pull: Pull-up, row, lat pulldown, inverted row, curl, shrug (choose one) - 50-100 total reps",
-            "Accessory: abs/low back/single-leg/KB swing/KB snatch (choose one) - 50-100 total reps",
-          ],
+          assistance: [ASSISTANCE.push, ASSISTANCE.pull, ASSISTANCE.accessory],
         },
         {
           day: "Day E",
@@ -312,9 +344,9 @@ const PROGRAM = {
             },
           ],
           assistance: [
-            "Push: Dip, push-up, or DB bench/incline/press (choose one) - 50-100 total reps",
-            "Pull: Pull-up, row, lat pulldown, inverted row, curl, shrug (choose one) - 50-100 total reps",
-            "Conditioning: Prowler or Sled - 20-30 minutes",
+            ASSISTANCE.push,
+            ASSISTANCE.pull,
+            ASSISTANCE.conditioning,
           ],
         },
       ],
@@ -356,11 +388,7 @@ const PROGRAM = {
               notes: "Widowmaker set",
             },
           ],
-          assistance: [
-            "Push: Dip, push-up, or DB bench/incline/press (choose one) - 50-100 total reps",
-            "Pull: Pull-up, row, lat pulldown, inverted row, curl, shrug (choose one) - 50-100 total reps",
-            "Accessory: abs/low back/single-leg/KB swing/KB snatch (choose one) - 50-100 total reps",
-          ],
+          assistance: [ASSISTANCE.push, ASSISTANCE.pull, ASSISTANCE.accessory],
         },
         {
           day: "Day B",
@@ -390,9 +418,9 @@ const PROGRAM = {
             },
           ],
           assistance: [
-            "Push: Dip, push-up, or DB bench/incline/press (choose one) - 50-100 total reps",
-            "Pull: Pull-up, row, lat pulldown, inverted row, curl, shrug (choose one) - 50-100 total reps",
-            "Conditioning: Prowler or Sled - 20-30 minutes",
+            ASSISTANCE.push,
+            ASSISTANCE.pull,
+            ASSISTANCE.conditioning,
           ],
         },
         {
@@ -429,11 +457,7 @@ const PROGRAM = {
               notes: "5 sets of 5",
             },
           ],
-          assistance: [
-            "Push: Dip, push-up, or DB bench/incline/press (choose one) - 50-100 total reps",
-            "Pull: Pull-up, row, lat pulldown, inverted row, curl, shrug (choose one) - 50-100 total reps",
-            "Accessory: abs/low back/single-leg/KB swing/KB snatch (choose one) - 50-100 total reps",
-          ],
+          assistance: [ASSISTANCE.push, ASSISTANCE.pull, ASSISTANCE.accessory],
         },
         {
           day: "Day E",
@@ -470,9 +494,9 @@ const PROGRAM = {
             },
           ],
           assistance: [
-            "Push: Dip, push-up, or DB bench/incline/press (choose one) - 50-100 total reps",
-            "Pull: Pull-up, row, lat pulldown, inverted row, curl, shrug (choose one) - 50-100 total reps",
-            "Conditioning: Prowler or Sled - 20-30 minutes",
+            ASSISTANCE.push,
+            ASSISTANCE.pull,
+            ASSISTANCE.conditioning,
           ],
         },
       ],

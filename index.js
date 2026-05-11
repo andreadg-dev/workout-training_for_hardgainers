@@ -1,4 +1,17 @@
 (function ($) {
+  const PUSH_DEF =
+    ASSISTANCE.push.exercises[Object.keys(ASSISTANCE.push.exercises)[0]];
+  const PULL_DEF =
+    ASSISTANCE.pull.exercises[Object.keys(ASSISTANCE.pull.exercises)[0]];
+  const ACCS_DEF =
+    ASSISTANCE.accessory.exercises[
+      Object.keys(ASSISTANCE.accessory.exercises)[0]
+    ];
+  const COND_DEF =
+    ASSISTANCE.conditioning.exercises[
+      Object.keys(ASSISTANCE.conditioning.exercises)[0]
+    ];
+
   const STORAGE_KEY = "hardgainers531_1rm_v1";
   const DEFAULTS = {
     squat: 100,
@@ -7,6 +20,26 @@
     press: 50,
     currentWeek: 1,
     currentDay: "A",
+    assistance: {
+      week1: {
+        day_a: [PUSH_DEF, PULL_DEF, ACCS_DEF],
+        day_b: [PUSH_DEF, PULL_DEF, COND_DEF],
+        day_d: [PUSH_DEF, PULL_DEF, ACCS_DEF],
+        day_e: [PUSH_DEF, PULL_DEF, COND_DEF],
+      },
+      week2: {
+        day_a: [PUSH_DEF, PULL_DEF, ACCS_DEF],
+        day_b: [PUSH_DEF, PULL_DEF, COND_DEF],
+        day_d: [PUSH_DEF, PULL_DEF, ACCS_DEF],
+        day_e: [PUSH_DEF, PULL_DEF, COND_DEF],
+      },
+      week3: {
+        day_a: [PUSH_DEF, PULL_DEF, ACCS_DEF],
+        day_b: [PUSH_DEF, PULL_DEF, COND_DEF],
+        day_d: [PUSH_DEF, PULL_DEF, ACCS_DEF],
+        day_e: [PUSH_DEF, PULL_DEF, COND_DEF],
+      },
+    },
   };
 
   function escapeAttr(s) {
@@ -101,7 +134,7 @@
     };
   }
 
-  function renderProgram() {
+  /*   function renderProgram() {
     const root = $("#program");
     root.empty();
 
@@ -230,6 +263,171 @@
       $wk.append($daysWrap);
       root.append($wk);
     });
+  } */
+
+  function renderProgram() {
+    const root = $("#program");
+    const esc = escapeAttr;
+
+    function tpl(template, vars) {
+      return template.replace(/\{\{(\w+)\}\}/g, function (_, key) {
+        return Object.prototype.hasOwnProperty.call(vars, key) ? vars[key] : "";
+      });
+    }
+
+    function renderSetLine(st) {
+      var leftText = st.percent_tm + "% x " + st.reps;
+      if (st.sets && st.sets > 1) {
+        leftText =
+          st.sets + " sets of " + st.reps + " @ " + st.percent_tm + "%";
+      }
+
+      return tpl(
+        `
+      <div class="setline" data-percent="{{percent}}">
+        <div class="lhs">
+          <span class="tag">{{type}}</span>
+          <span>{{leftText}}</span>
+          {{notesHtml}}
+        </div>
+        <div class="rhs">
+          <span class="mono js-weight">—</span>
+        </div>
+      </div>
+      `,
+        {
+          percent: esc(st.percent_tm),
+          type: esc(st.type),
+          leftText: esc(leftText),
+          notesHtml: st.notes
+            ? tpl(`<span class="muted small">— {{notes}}</span>`, {
+                notes: esc(st.notes),
+              })
+            : "",
+        },
+      ).trim();
+    }
+
+    function renderDay(day, week) {
+      var setsHtml = day.sets.map(renderSetLine).join("");
+      var assistanceHtml = day.assistance
+        .map(function (asstExercise) {
+          return tpl(
+            `<div class="assistanceline">
+                <div class="lhs">
+                  <label for="assistance-{{exerciseType}}-{{week}}{{day}}" class="tag">{{exerciseType}}</label>
+                  <select name="assistance-{{exerciseType}}-{{week}}{{day}}" id="assistance-{{exerciseType}}-{{week}}{{day}}">
+                    {{options}}
+                  </select>
+                </div>
+                <div class="rhs">
+                  <span class="mono js-reps">{{reps}}</span>
+                </div>
+              </div>`,
+            {
+              exerciseType: esc(asstExercise.type),
+              day: esc(day?.day.toLowerCase().replace(" ", "")),
+              options: Object.keys(asstExercise.exercises)
+                .map((key) => {
+                  return `<option value="${asstExercise.exercises[key]}" id="${key}">${asstExercise.exercises[key]}</option>`;
+                })
+                .join(""),
+              reps: asstExercise.reps,
+              week: "week" + week,
+            },
+          );
+        })
+        .join("");
+
+      return tpl(
+        `<div class="day">
+            <div class="head">
+              <div class="title">{{dayName}}</div>
+              <div class="badge">Main Lift: {{mainLift}}</div>
+            </div>
+
+            <div class="body">
+              <div class="k">Warm-Up: {{warmup}}</div>
+
+              <div class="sets" data-main-lift="{{mainLiftAttr}}" style="margin-top: 10px;">
+                <div style="margin-top: 10px; font-weight: 700; font-size: 12px; letter-spacing: .25px;">
+                  Main Lift Work
+                </div>
+                {{setsHtml}}
+              </div>
+
+              <div style="margin-top: 10px;">
+                <div class="assist-title">
+                  Assistance
+                </div>
+                <div style="margin-top: 10px; font-weight: 700; font-size: 12px; letter-spacing: .25px;">
+                  {{assistanceHtml}}
+                </div>
+              </div>
+            </div>
+        </div>`,
+        {
+          dayName: esc(day.day),
+          mainLift: esc(day.main_lift),
+          mainLiftAttr: esc(day.main_lift),
+          warmup: esc(day.warm_up.join(" • ")),
+          setsHtml: setsHtml,
+          assistanceHtml: assistanceHtml,
+        },
+      ).trim();
+    }
+
+    function renderWeek(wk) {
+      return tpl(
+        `
+      <div class="week" data-week="{{week}}" style="margin-top: 14px;">
+        <div class="pill week-pill" style="margin-top: 10px;">
+          Week <b>{{week}}</b>
+        </div>
+        <div class="week-days">
+          {{daysHtml}}
+        </div>
+      </div>
+      `,
+        {
+          week: esc(wk.week),
+          daysHtml: wk.days
+            .map((day) => {
+              return renderDay(day, wk.week);
+            })
+            .join(""),
+        },
+      ).trim();
+    }
+
+    var sourceHtml = tpl(
+      `
+    <div class="small muted">
+      Source:
+      <a href="{{source}}" target="_blank" rel="noopener">jimwendler.com</a>
+    </div>
+    `,
+      { source: esc(PROGRAM.source) },
+    ).trim();
+
+    var notesHtml = tpl(
+      `<div class="note">
+        <ul style="margin: 8px 0 0 18px; padding: 0;">
+          {{items}}
+        </ul>
+      </div>`,
+      {
+        items: PROGRAM.notes
+          .map(function (n) {
+            return tpl(`<li>{{note}}</li>`, { note: esc(n) });
+          })
+          .join(""),
+      },
+    ).trim();
+
+    var weeksHtml = PROGRAM.weeks.map(renderWeek).join("");
+
+    root.html(sourceHtml + notesHtml + weeksHtml);
   }
 
   function updateAllWeights(state) {
